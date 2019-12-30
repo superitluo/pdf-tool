@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--    <th:block th:common="include :: header" />-->
+    <th:block th:include="common :: header" />
     <title>首页</title>
 </head>
 <body>
 进入首页
 <span th:text="*{hello}"></span>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>基础效果</legend>
+</fieldset>
+<div id="test1"></div>
 </body>
 </html>
+
+<script>
+    layui.use(['rate'], function() {
+        var rate = layui.rate;
+        //基础效果
+        rate.render({
+            elem: '#test1'
+        })
+    });
+</script>

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -25,6 +26,7 @@ public class WebViewConfig implements WebMvcConfigurer {
         templateResolver.setPrefix("classpath:/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("utf-8");
+        templateResolver.setCacheable(false);
         return templateResolver;
     }
     /**
@@ -47,5 +49,16 @@ public class WebViewConfig implements WebMvcConfigurer {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         return templateEngine;
+    }
+
+    /**
+     * 配置静态文件映射
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        //根据自己项目的实际路径去配置
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**").addResourceLocations("/WEB-INF/static/");
     }
 }
